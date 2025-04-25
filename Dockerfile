@@ -1,5 +1,5 @@
 # Używamy JDK 17 slim
-FROM openjdk:17-jdk-slim
+FROM openjdk:11-jdk-slim
 
 # Ustawiamy katalog roboczy
 WORKDIR /app
