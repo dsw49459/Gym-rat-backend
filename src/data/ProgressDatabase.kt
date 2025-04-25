@@ -4,14 +4,10 @@ import com.androiddevs.data.collections.Exercise
 import com.androiddevs.data.collections.ProgressEntry
 import com.androiddevs.data.collections.User
 import com.androiddevs.security.checkHashForPassword
-import org.litote.kmongo.coroutine.coroutine
-import org.litote.kmongo.reactivestreams.KMongo
 import org.litote.kmongo.eq
 
-private val client = KMongo.createClient().coroutine
-private val database = client.getDatabase("ProgressDatabase")
+private val database = MongoClientProvider.database
 private val users = database.getCollection<User>()
-
 private val progressEntries = database.getCollection<ProgressEntry>()
 private val exercises = database.getCollection<Exercise>()
 

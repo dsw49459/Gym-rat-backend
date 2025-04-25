@@ -33,7 +33,7 @@ fun Application.module() {
 
 private fun Authentication.Configuration.configureAuth() {
     basic {
-        realm = "Note Server"
+        realm = "Gym rat Server"
         validate { credentials ->
             val email = credentials.name
             val password = credentials.password
