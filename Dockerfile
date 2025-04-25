@@ -1,17 +1,20 @@
-# Używamy JDK 17 slim
+# Pobieramy lekką wersję JDK 11 (działa z Gradle 5.6.2)
 FROM openjdk:11-jdk-slim
 
 # Ustawiamy katalog roboczy
 WORKDIR /app
 
-# Kopiujemy pliki projektu
+# Kopiujemy cały projekt
 COPY . .
 
-# Budujemy aplikację
-RUN ./gradlew build
+# Nadajemy prawa do uruchomienia gradlew
+RUN chmod +x gradlew
 
-# Ustawiamy port, który aplikacja będzie nasłuchiwać
+# Budujemy aplikację
+RUN ./gradlew installDist
+
+# Otwieramy port 8080
 EXPOSE 8080
 
-# Uruchamiamy aplikację z katalogu /release
-CMD ["java", "-jar", "release/app.jar"]
+# Uruchamiamy aplikację
+CMD ["./build/install/gymratbackend/bin/gymratbackend"]
