@@ -28,6 +28,7 @@ fun Application.module() {
         loginRoute()
         exerciseRoutes()
         progressRoutes()
+        suggestedWorkoutRoute()
     }
 }
 
