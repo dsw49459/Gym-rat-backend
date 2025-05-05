@@ -22,15 +22,27 @@ fun Route.registerRoute() {
             withContext(Dispatchers.IO) {
                 val request = try {
                     call.receive<AccountRequest>()
-                } catch(e: ContentTransformationException) {
+                } catch (e: ContentTransformationException) {
                     call.respond(BadRequest)
                     return@withContext
                 }
+
                 val userExists = checkIfUserExists(request.email)
 
-                if(!userExists) {
-                    if(registerUser(User(request.email, getHashWithSalt(request.password)))) {
-                        call.respond(OK, SimpleResponse(true, "Skutecznie utworzylem aplikacje!"))
+                if (!userExists) {
+                    val newUser = User(
+                        email = request.email,
+                        password = getHashWithSalt(request.password)
+                    )
+                    if (registerUser(newUser)) {
+                        call.respond(
+                            OK,
+                            SimpleResponse(
+                                successful = true,
+                                message = "Skutecznie utworzylem aplikacje!",
+                                userId = newUser.id
+                            )
+                        )
                     } else {
                         call.respond(OK, SimpleResponse(false, "Wystapil blad"))
                     }

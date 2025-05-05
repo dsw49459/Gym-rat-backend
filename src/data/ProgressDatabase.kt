@@ -43,3 +43,7 @@ suspend fun getAllExercises(): List<Exercise> {
 suspend fun getExerciseById(id: String): Exercise? {
     return exercises.findOneById(id)
 }
+
+suspend fun getUserByEmail(email: String): User? {
+    return users.findOne(User::email eq email)
+}
